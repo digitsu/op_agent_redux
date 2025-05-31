@@ -95,7 +95,7 @@ defmodule Operate.VM do
 
   def get(vm, path) when is_list(path) do
     try do
-      {result, _vm} = :luerl.get_table(path, vm)
+      {result, _vm} = :luerl.get_table_keys(path, vm)
       {:ok, decode(result)}
     rescue
       err -> {:error, "Lua Error: #{inspect err}"}
@@ -161,7 +161,7 @@ defmodule Operate.VM do
         |> set(path, value)
       _ ->
         try do
-          vm = :luerl.set_table(path, value, vm)
+          vm = :luerl.set_table_keys(path, value, vm)
           {:ok, vm}
         rescue
           err -> {:error, "Lua Error: #{inspect err}"}
